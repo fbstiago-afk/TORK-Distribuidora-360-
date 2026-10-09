@@ -1,0 +1,133 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.4.0/schema.json",
+  "displayName": "Filtros abertos · Estoque & Supply",
+  "name": "bb7397a3e03bd51e9f47",
+  "options": {
+    "targetVisualNames": [
+      "a3c22cc09e67c7c70d0f",
+      "d5b49d35cf9993b75c26",
+      "7f2b841909c7ece22358",
+      "92df23678639ed01de7b",
+      "54fd190430fa96fde717",
+      "12d0b15950362ce8468f",
+      "5cd6d0ca039db1553feb",
+      "9294493622b032a4a591",
+      "ad9c914451c649ee75f6",
+      "8fadfecc7eedde494dbb",
+      "1452a0e6c045c70f8afa",
+      "eb505f9c9ae74634a03f",
+      "6df6faeb58cb401e9535",
+      "10314c7d919c95c40922",
+      "395988b0631a358a8bca",
+      "42101331bd9790238b0a"
+    ],
+    "suppressData": true,
+    "applyOnlyToTargetVisuals": true
+  },
+  "explorationState": {
+    "version": "1.0",
+    "activeSection": "estoque",
+    "sections": {
+      "estoque": {
+        "visualContainers": {
+          "a3c22cc09e67c7c70d0f": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "d5b49d35cf9993b75c26": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "7f2b841909c7ece22358": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "92df23678639ed01de7b": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "54fd190430fa96fde717": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "12d0b15950362ce8468f": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "5cd6d0ca039db1553feb": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "9294493622b032a4a591": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "ad9c914451c649ee75f6": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "8fadfecc7eedde494dbb": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "1452a0e6c045c70f8afa": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "eb505f9c9ae74634a03f": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "6df6faeb58cb401e9535": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "10314c7d919c95c40922": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "395988b0631a358a8bca": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "42101331bd9790238b0a": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

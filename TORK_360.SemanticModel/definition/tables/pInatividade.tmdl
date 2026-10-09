@@ -1,0 +1,25 @@
+/// Janela de inatividade de clientes, em dias.
+table pInatividade
+	lineageTag: 51fc3b53-1a3c-59d1-9c75-76b468514474
+
+	column Inatividade
+		dataType: string
+		lineageTag: 42fae002-f594-57d4-b3ac-527540b136b8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Inatividade]
+		sortByColumn: Dias
+
+	column Dias
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 35e3eb54-b298-5573-9be7-9442a49e21ed
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dias]
+
+	partition pInatividade = calculated
+		mode: import
+		source = DATATABLE ( "Inatividade", STRING, "Dias", INTEGER, { { "30 dias", 30 }, { "60 dias", 60 }, { "90 dias", 90 } } )
+

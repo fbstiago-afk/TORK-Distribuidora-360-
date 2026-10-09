@@ -1,0 +1,47 @@
+/// Parâmetro de campo: medida do ranking.
+table pIndicador
+	lineageTag: 64576f14-4a4e-5b31-ba0f-dd9516c1c81e
+
+	column Indicador
+		dataType: string
+		lineageTag: 5b44760e-a1a1-5640-862d-355664b06a9b
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Indicador Ordem'
+
+		relatedColumnDetails
+			groupByColumn: 'Indicador Campos'
+
+	column 'Indicador Campos'
+		dataType: string
+		isHidden
+		lineageTag: 2e138851-3a88-5886-965a-af115c895c84
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Indicador Ordem'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column 'Indicador Ordem'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b6d25ccc-78c5-5b5a-953d-dbb255781692
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition pIndicador = calculated
+		mode: import
+		source =
+				{
+					( "Faturamento", NAMEOF ( [Receita Líquida] ), 0 ),
+					( "Margem", NAMEOF ( [Margem Contribuição] ), 1 ),
+					( "MC %", NAMEOF ( [MC %] ), 2 ),
+					( "Clientes", NAMEOF ( [Clientes Ativos] ), 3 ),
+					( "Ticket", NAMEOF ( [Ticket Médio] ), 4 )
+				}
+

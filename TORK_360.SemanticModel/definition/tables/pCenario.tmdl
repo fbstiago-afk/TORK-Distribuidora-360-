@@ -1,0 +1,33 @@
+/// Cenário de demanda da simulação de estoque.
+table pCenario
+	lineageTag: 3213d8de-97b2-5379-8970-ec55b9ad0f65
+
+	column Cenário
+		dataType: string
+		lineageTag: c3ba381a-9dd6-5619-a1e2-a8766947afe9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Cenário]
+		sortByColumn: CenarioID
+
+	column Fator
+		dataType: double
+		isHidden
+		lineageTag: 12b8ffe0-32fb-54a8-9db9-4e306b8be37f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Fator]
+
+	column CenarioID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b3fb1c2c-4600-5d2d-b2c2-0a2d72ca0d4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [CenarioID]
+
+	partition pCenario = calculated
+		mode: import
+		source = DATATABLE ( "Cenário", STRING, "Fator", DOUBLE, "CenarioID", INTEGER, { { "Pessimista (−15%)", 0.85, 1 }, { "Base", 1.0, 2 }, { "Otimista (+15%)", 1.15, 3 } } )
+

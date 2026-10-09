@@ -1,0 +1,111 @@
+/// Snapshot SEMANAL de estoque aos sábados por SKU × filial. Nunca somar saldos entre semanas.
+table fEstoque
+	lineageTag: 2231c50b-15b6-5711-b275-770fd2d071e9
+
+	column Data
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 1f469e88-0d5b-5d11-97ef-daac49625219
+		summarizeBy: none
+		sourceColumn: Data
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 94754145-dfd7-55ed-875c-b69ea49d8300
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c1f1248e-b9d2-5f1a-9a3d-5189526ae669
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column EstoqueInicial
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 19b46d89-81ca-52e8-a320-d7bfb6dddd3a
+		summarizeBy: none
+		sourceColumn: EstoqueInicial
+
+	column Entrada
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d4dc999f-5af8-56d1-bb0f-2a58e1add9fe
+		summarizeBy: none
+		sourceColumn: Entrada
+
+	column Saida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0bb50d6c-9305-5d48-89e6-197b32d77c78
+		summarizeBy: none
+		sourceColumn: Saida
+
+	column Ajuste
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: db3ec57d-627d-57e8-a071-cdb4eade6272
+		summarizeBy: none
+		sourceColumn: Ajuste
+
+	column EstoqueFinal
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 286d1cfb-f7aa-5924-a4a1-3dabc468b7eb
+		summarizeBy: none
+		sourceColumn: EstoqueFinal
+
+	column CustoMedio
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 71b4983c-2bc3-5968-8ef3-4f5d9a6b2441
+		summarizeBy: none
+		sourceColumn: CustoMedio
+
+	column ValorEstoque
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 399df95e-7f4b-5e95-8dde-5e75f5fc0373
+		summarizeBy: none
+		sourceColumn: ValorEstoque
+
+	column EstoqueSeguranca
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a6a68fbd-059c-5725-943e-8591a0fd18cb
+		summarizeBy: none
+		sourceColumn: EstoqueSeguranca
+
+	column PontoReposicao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 93326048-5193-5721-b8d5-0a8a6e0e8620
+		summarizeBy: none
+		sourceColumn: PontoReposicao
+
+	partition fEstoque = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fEstoque.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"Data", "FilialID", "ProdutoID", "EstoqueInicial", "Entrada", "Saida", "Ajuste", "EstoqueFinal", "CustoMedio", "ValorEstoque", "EstoqueSeguranca", "PontoReposicao"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Data", type date}, {"FilialID", Int64.Type}, {"ProdutoID", Int64.Type}, {"EstoqueInicial", Int64.Type}, {"Entrada", Int64.Type}, {"Saida", Int64.Type}, {"Ajuste", Int64.Type}, {"EstoqueFinal", Int64.Type}, {"CustoMedio", Currency.Type}, {"ValorEstoque", Currency.Type}, {"EstoqueSeguranca", Int64.Type}, {"PontoReposicao", Int64.Type}}, "en-US")
+				in
+					Tipos
+

@@ -1,0 +1,25 @@
+/// Métrica do gráfico principal.
+table pMetrica
+	lineageTag: 9d31b76c-fe54-53d2-b601-a6105b1ebac8
+
+	column Métrica
+		dataType: string
+		lineageTag: c3555827-105e-5621-bfb6-b2918bfa819f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Métrica]
+		sortByColumn: MetricaID
+
+	column MetricaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7ea7650f-3548-5b2f-b853-8458dbda06c1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MetricaID]
+
+	partition pMetrica = calculated
+		mode: import
+		source = DATATABLE ( "Métrica", STRING, "MetricaID", INTEGER, { { "Faturamento", 1 }, { "Margem", 2 }, { "Volume", 3 } } )
+

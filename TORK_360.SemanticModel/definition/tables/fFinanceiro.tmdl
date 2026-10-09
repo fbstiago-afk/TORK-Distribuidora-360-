@@ -1,0 +1,101 @@
+/// Títulos a receber, um por pedido. Data ativa: DataEmissao. SaldoAberto e DiasAtraso do arquivo foram apurados em 31/10/2026; as medidas recalculam a posição na data de corte.
+table fFinanceiro
+	lineageTag: 361df2af-bf4a-5950-ad09-e1fba5004476
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0006fa94-8d95-5273-969c-fc0e8e512a19
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4228c109-0785-53bd-b06b-e2406d97f9dd
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aaa761f4-8428-5bbc-a5e3-5b4a2126a5f7
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column DataEmissao
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 5f055870-25c2-5042-8193-9544f4847a99
+		summarizeBy: none
+		sourceColumn: DataEmissao
+
+	column DataVencimento
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: f6295cb7-d0f6-5a6c-805a-0e33160ea6ea
+		summarizeBy: none
+		sourceColumn: DataVencimento
+
+	column DataPagamento
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: f03fe5c6-60d2-51fc-ab0f-4c30971ec8dd
+		summarizeBy: none
+		sourceColumn: DataPagamento
+
+	column ValorTitulo
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 9140106c-e642-5d21-88a3-590810cff968
+		summarizeBy: none
+		sourceColumn: ValorTitulo
+
+	column ValorPago
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: a4d62e4a-7dfe-5ee9-b79e-836c854db61f
+		summarizeBy: none
+		sourceColumn: ValorPago
+
+	column SaldoAberto
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 308e901e-5d48-56dd-aee7-ae9b4cc944be
+		summarizeBy: none
+		sourceColumn: SaldoAberto
+
+	column DiasAtraso
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 82c371c1-62ee-5cfa-84e5-bde2eb18d92b
+		summarizeBy: none
+		sourceColumn: DiasAtraso
+
+	column StatusFinanceiro
+		dataType: string
+		lineageTag: a2267c09-77b6-5211-83c8-fe9153bffcdc
+		summarizeBy: none
+		sourceColumn: StatusFinanceiro
+
+	partition fFinanceiro = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fFinanceiro.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"PedidoID", "ClienteID", "FilialID", "DataEmissao", "DataVencimento", "DataPagamento", "ValorTitulo", "ValorPago", "SaldoAberto", "DiasAtraso", "StatusFinanceiro"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"PedidoID", Int64.Type}, {"ClienteID", Int64.Type}, {"FilialID", Int64.Type}, {"DataEmissao", type date}, {"DataVencimento", type date}, {"DataPagamento", type date}, {"ValorTitulo", Currency.Type}, {"ValorPago", Currency.Type}, {"SaldoAberto", Currency.Type}, {"DiasAtraso", Int64.Type}, {"StatusFinanceiro", type text}}, "en-US")
+				in
+					Tipos
+

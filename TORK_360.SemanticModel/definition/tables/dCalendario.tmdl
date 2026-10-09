@@ -1,0 +1,120 @@
+/// Calendário diário de 01/01/2024 a 31/10/2026. Tabela de datas do modelo. Feriados: lista simplificada de feriados fixos nacionais.
+table dCalendario
+	lineageTag: 836645b6-fc36-5361-84ed-5f1ac5e84b78
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		lineageTag: 17f84740-56b2-5565-8995-76419c9f0903
+		summarizeBy: none
+		sourceColumn: Data
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 5199c083-acf1-5380-837d-5c5e01e76317
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column MesNumero
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 797331f3-b93f-5b77-b49d-860523651926
+		summarizeBy: none
+		sourceColumn: MesNumero
+
+	column AnoMes
+		dataType: string
+		lineageTag: 2254cb67-5236-59d9-b37e-d56f4b9162dd
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+	column Trimestre
+		dataType: string
+		lineageTag: 5badbebe-822f-549a-9895-ac3b7d8e4809
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+	column SemanaAno
+		dataType: int64
+		formatString: 0
+		lineageTag: 9effacb8-3d93-5b5b-8eb6-b97498beddc4
+		summarizeBy: none
+		sourceColumn: SemanaAno
+
+	column DiaSemanaNumero
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 592b479e-3129-57f0-bffc-0c283413ae47
+		summarizeBy: none
+		sourceColumn: DiaSemanaNumero
+
+	column DiaUtil
+		dataType: int64
+		formatString: 0
+		lineageTag: e2614172-7faa-5fb9-91fb-b05ad3a00b03
+		summarizeBy: none
+		sourceColumn: DiaUtil
+
+	column Feriado
+		dataType: int64
+		formatString: 0
+		lineageTag: 3066a093-f548-5132-979a-4f6278613f72
+		summarizeBy: none
+		sourceColumn: Feriado
+
+	column MesIndice
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: edc11187-364c-5d4a-98c4-6342f56e8f80
+		summarizeBy: none
+		sourceColumn: MesIndice
+
+	column Mes
+		dataType: string
+		lineageTag: 74deed51-c2b6-5f6a-980e-129434ac370b
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: MesNumero
+
+	column MesAno
+		dataType: string
+		lineageTag: 67f761bd-9937-5b03-947c-c9804cb6a584
+		summarizeBy: none
+		sourceColumn: MesAno
+		sortByColumn: MesIndice
+
+	column AnoTrimestre
+		dataType: string
+		lineageTag: 774b384a-e7f3-5fd0-8520-184712cf7ba7
+		summarizeBy: none
+		sourceColumn: AnoTrimestre
+
+	column DiaSemana
+		dataType: string
+		lineageTag: 9282253d-5478-5cf8-a18f-63e84d93439f
+		summarizeBy: none
+		sourceColumn: DiaSemana
+		sortByColumn: DiaSemanaNumero
+
+	partition dCalendario = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dCalendario.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"Data", "Ano", "MesNumero", "AnoMes", "Trimestre", "SemanaAno", "DiaSemanaNumero", "DiaUtil", "Feriado"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Data", type date}, {"Ano", Int64.Type}, {"MesNumero", Int64.Type}, {"AnoMes", type text}, {"Trimestre", type text}, {"SemanaAno", Int64.Type}, {"DiaSemanaNumero", Int64.Type}, {"DiaUtil", Int64.Type}, {"Feriado", Int64.Type}}, "en-US"),
+					MesIndice = Table.AddColumn(Tipos, "MesIndice", each [Ano] * 12 + [MesNumero], Int64.Type),
+					Mes = Table.AddColumn(MesIndice, "Mes", each Text.Proper(Date.ToText([Data], "MMMM", "pt-BR")), type text),
+					MesAno = Table.AddColumn(Mes, "MesAno", each Text.Lower(Date.ToText([Data], "MMM", "pt-BR")) & "/" & Date.ToText([Data], "yy"), type text),
+					AnoTrimestre = Table.AddColumn(MesAno, "AnoTrimestre", each Text.From([Ano]) & "-" & [Trimestre], type text),
+					DiaSemana = Table.AddColumn(AnoTrimestre, "DiaSemana", each Text.Proper(Date.ToText([Data], "dddd", "pt-BR")), type text)
+				in
+					DiaSemana
+

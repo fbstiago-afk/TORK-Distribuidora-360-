@@ -1,0 +1,103 @@
+relationship aacbdd8b-f53a-5073-85fc-91a84a952662
+	fromColumn: fVendas.DataVenda
+	toColumn: dCalendario.Data
+
+relationship 6c5b6546-8745-52fc-9cb7-91a90904b092
+	fromColumn: fVendas.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship cc41219a-93ee-5823-82b8-b78bdf686b56
+	fromColumn: fVendas.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship 6c51bf54-52b0-5181-9ea9-48637edea247
+	fromColumn: fVendas.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 3c13d117-9155-5ee6-90fd-c4a97f6857b4
+	fromColumn: fVendas.FilialID
+	toColumn: dFilial.FilialID
+
+relationship d294ec94-4cb4-57b0-9085-ddad75e0fa35
+	fromColumn: fCompras.DataPedido
+	toColumn: dCalendario.Data
+
+relationship e33827b1-2fb8-52a4-97e9-180a71f2fbc8
+	isActive: false
+	fromColumn: fCompras.DataEntregaReal
+	toColumn: dCalendario.Data
+
+relationship 6f498714-5556-5da6-ad41-026740bef043
+	fromColumn: fCompras.FornecedorID
+	toColumn: dFornecedor.FornecedorID
+
+relationship ef5c14a0-c4af-54e6-bf59-e5d427f98468
+	fromColumn: fCompras.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship 67a4315c-f387-52b0-bc55-33b669206c44
+	fromColumn: fCompras.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 97f23156-3b66-555a-8017-6db6ccf52bb1
+	fromColumn: fEstoque.Data
+	toColumn: dCalendario.Data
+
+relationship 0f2bc617-da63-526b-be3e-41c4ac11fb65
+	fromColumn: fEstoque.ProdutoID
+	toColumn: dProduto.ProdutoID
+
+relationship e37f7cb4-2624-5e54-95a8-99ecc61c341c
+	fromColumn: fEstoque.FilialID
+	toColumn: dFilial.FilialID
+
+relationship af174284-90f2-52e4-94c6-914d6dd9666b
+	fromColumn: fFinanceiro.DataEmissao
+	toColumn: dCalendario.Data
+
+relationship a036844b-abf8-5367-98b0-c41a22c0ed9b
+	isActive: false
+	fromColumn: fFinanceiro.DataVencimento
+	toColumn: dCalendario.Data
+
+relationship 875a1331-04ff-5f43-aa9f-0f6670cb455c
+	isActive: false
+	fromColumn: fFinanceiro.DataPagamento
+	toColumn: dCalendario.Data
+
+relationship acf5cd20-1b54-5ef1-b7e9-ffa13d7cba65
+	fromColumn: fFinanceiro.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship 930ee95e-518c-5d17-9b08-38298c9fe966
+	fromColumn: fFinanceiro.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 8613fffc-52c5-56cb-bd69-d6747b47a588
+	fromColumn: fVisitas.DataVisita
+	toColumn: dCalendario.Data
+
+relationship c5856f9f-8f8c-5a54-ae46-e78b3f8017b8
+	fromColumn: fVisitas.ClienteID
+	toColumn: dCliente.ClienteID
+
+relationship 6868aee0-bf95-5488-b762-74675aaa0180
+	fromColumn: fVisitas.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 331992b7-c3b0-5512-abbe-e31a6eb55e9d
+	fromColumn: fVisitas.FilialID
+	toColumn: dFilial.FilialID
+
+relationship 927fd4be-1ca7-5f56-98c7-e35f4bae95a2
+	fromColumn: fMetas.AnoMes
+	toColumn: dMes.AnoMes
+
+relationship 2f9bdc8e-edf8-5ca5-aabb-e2e72ddcc2f8
+	fromColumn: fMetas.VendedorID
+	toColumn: dVendedor.VendedorID
+
+relationship 0adf9cb3-09c5-5712-ad81-59dea3be6735
+	fromColumn: fMetas.FilialID
+	toColumn: dFilial.FilialID
+

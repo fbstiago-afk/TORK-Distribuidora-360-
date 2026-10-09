@@ -1,0 +1,51 @@
+FornecedorID,Fornecedor,UF,CategoriaPrincipal,LeadTimePadraoDias,PrazoPagamento,ScoreQualidade,ScoreEntrega,ScorePreco,StatusFornecedor
+1,EletroMax Indústria 01,SP,Elétrica,13,60,84,68,83,Ativo
+2,TecnoParts Indústria 02,RS,Baterias,13,60,82,85,93,Ativo
+3,AutoSupply Indústria 03,RS,Baterias,4,28,75,48,97,Ativo
+4,PowerLine Indústria 04,SP,Filtros,21,28,69,96,61,Ativo
+5,Via Peças Indústria 05,PR,Lubrificantes,22,30,71,56,81,Ativo
+6,Dinamix Indústria 06,SP,Palhetas,11,21,80,84,92,Ativo
+7,Prime Auto Indústria 07,SP,Lubrificantes,15,60,73,83,88,Ativo
+8,Alpha Componentes Indústria 08,SP,Baterias,18,21,89,99,61,Ativo
+9,Rota Sul Indústria 09,RS,Lubrificantes,9,30,74,67,75,Ativo
+10,Norte Distribuição Indústria 10,PR,Baterias,13,21,79,66,72,Ativo
+11,EletroMax Indústria 11,RS,Baterias,12,30,88,64,75,Ativo
+12,TecnoParts Indústria 12,SP,Filtros,4,21,99,57,66,Ativo
+13,AutoSupply Indústria 13,SP,Manutenção,13,28,78,75,71,Ativo
+14,PowerLine Indústria 14,SP,Lubrificantes,9,60,90,63,77,Ativo
+15,Via Peças Indústria 15,SP,Baterias,19,45,70,95,88,Ativo
+16,Dinamix Indústria 16,SP,Elétrica,20,45,95,81,69,Ativo
+17,Prime Auto Indústria 17,SP,Lubrificantes,20,28,86,66,63,Ativo
+18,Alpha Componentes Indústria 18,SP,Filtros,9,45,68,83,60,Ativo
+19,Rota Sul Indústria 19,MG,Manutenção,7,28,79,63,62,Ativo
+20,Norte Distribuição Indústria 20,MG,Baterias,8,60,90,68,62,Ativo
+21,EletroMax Indústria 21,SP,Filtros,22,60,92,69,66,Ativo
+22,TecnoParts Indústria 22,SC,Baterias,21,45,95,90,90,Ativo
+23,AutoSupply Indústria 23,SP,Lubrificantes,18,60,96,74,71,Ativo
+24,PowerLine Indústria 24,SP,Palhetas,10,30,71,73,65,Ativo
+25,Via Peças Indústria 25,SP,Baterias,22,30,91,93,72,Ativo
+26,Dinamix Indústria 26,SP,Lubrificantes,12,30,92,95,80,Ativo
+27,Prime Auto Indústria 27,SP,Filtros,13,60,92,75,71,Ativo
+28,Alpha Componentes Indústria 28,PR,Baterias,12,21,72,70,89,Ativo
+29,Rota Sul Indústria 29,RS,Manutenção,19,45,75,72,93,Ativo
+30,Norte Distribuição Indústria 30,MG,Palhetas,17,30,86,84,79,Ativo
+31,EletroMax Indústria 31,MG,Baterias,7,45,72,81,62,Ativo
+32,TecnoParts Indústria 32,SP,Palhetas,17,28,83,64,80,Ativo
+33,AutoSupply Indústria 33,MG,Baterias,8,21,88,96,87,Ativo
+34,PowerLine Indústria 34,SP,Filtros,7,30,69,66,79,Ativo
+35,Via Peças Indústria 35,PR,Elétrica,8,21,81,61,84,Ativo
+36,Dinamix Indústria 36,RS,Baterias,5,30,90,77,97,Ativo
+37,Prime Auto Indústria 37,PR,Lubrificantes,4,30,88,90,85,Ativo
+38,Alpha Componentes Indústria 38,MG,Baterias,10,21,70,97,88,Ativo
+39,Rota Sul Indústria 39,PR,Baterias,21,21,74,62,68,Ativo
+40,Norte Distribuição Indústria 40,SP,Iluminação,10,30,76,71,82,Ativo
+41,EletroMax Indústria 41,MG,Baterias,6,45,84,59,88,Ativo
+42,TecnoParts Indústria 42,MG,Baterias,14,21,90,73,82,Ativo
+43,AutoSupply Indústria 43,SP,Baterias,10,60,94,63,62,Ativo
+44,PowerLine Indústria 44,MG,Palhetas,6,28,80,71,60,Ativo
+45,Via Peças Indústria 45,MG,Iluminação,7,45,68,80,64,Ativo
+46,Dinamix Indústria 46,PR,Lubrificantes,20,28,69,94,97,Ativo
+47,Prime Auto Indústria 47,SP,Baterias,5,30,74,91,63,Ativo
+48,Alpha Componentes Indústria 48,MG,Iluminação,14,28,92,79,89,Ativo
+49,Rota Sul Indústria 49,RS,Iluminação,8,45,82,83,75,Ativo
+50,Norte Distribuição Indústria 50,SP,Elétrica,17,60,79,86,78,Ativo

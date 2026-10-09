@@ -1,0 +1,25 @@
+/// Limiar de queda mês contra mês destacado no gráfico principal.
+table pQueda
+	lineageTag: eb73804f-ed56-584b-a733-f3ae3949daa8
+
+	column 'Limiar de queda'
+		dataType: string
+		lineageTag: 93750c2b-8076-59b7-8182-52bec4a74675
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Limiar de queda]
+		sortByColumn: Percentual
+
+	column Percentual
+		dataType: double
+		isHidden
+		formatString: 0%
+		lineageTag: e6aa5f37-b5f8-52ef-acc2-6c37e4a26af4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Percentual]
+
+	partition pQueda = calculated
+		mode: import
+		source = DATATABLE ( "Limiar de queda", STRING, "Percentual", DOUBLE, { { "5%", 0.05 }, { "10%", 0.1 }, { "15%", 0.15 }, { "20%", 0.2 } } )
+

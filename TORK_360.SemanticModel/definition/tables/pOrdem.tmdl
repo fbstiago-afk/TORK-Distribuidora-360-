@@ -1,0 +1,25 @@
+/// Critério de ordenação do Decision Center.
+table pOrdem
+	lineageTag: c020c92b-98c0-535f-8a08-04251cb345c1
+
+	column 'Ordenar por'
+		dataType: string
+		lineageTag: b92e88c5-4369-5b39-9f00-291f5d27edd4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordenar por]
+		sortByColumn: OrdemID
+
+	column OrdemID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 03d2ff0c-673b-5b6a-b1cf-400cbeaa8393
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [OrdemID]
+
+	partition pOrdem = calculated
+		mode: import
+		source = DATATABLE ( "Ordenar por", STRING, "OrdemID", INTEGER, { { "Prioridade", 1 }, { "Urgência", 2 }, { "Confiança", 3 } } )
+

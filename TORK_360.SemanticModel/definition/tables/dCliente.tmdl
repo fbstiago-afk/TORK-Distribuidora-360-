@@ -1,0 +1,217 @@
+/// Clientes (fictícios). PotencialMensalEstimado é hipótese sintética, não mercado medido. Segmentação RFV calculada na data de corte padrão (08/10/2026).
+table dCliente
+	lineageTag: 81d973f8-7b46-5371-9d6a-4b51b4124c38
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f74c8597-884e-5c2e-b410-05de3426d075
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column RazaoSocial
+		dataType: string
+		lineageTag: 32bbc8a9-de7b-5b8b-8b68-1e99ff03f3a7
+		summarizeBy: none
+		sourceColumn: RazaoSocial
+
+	column NomeFantasia
+		dataType: string
+		lineageTag: b200aafa-4463-5b34-aa74-943f50d6d171
+		summarizeBy: none
+		sourceColumn: NomeFantasia
+
+	column CNPJ_Ficticio
+		dataType: string
+		isHidden
+		lineageTag: d10ae8c8-6628-52e5-bbc0-982759d7c3b3
+		summarizeBy: none
+		sourceColumn: CNPJ_Ficticio
+
+	column TipoCliente
+		dataType: string
+		lineageTag: e6590771-7ebf-5095-8633-3ffc397aa333
+		summarizeBy: none
+		sourceColumn: TipoCliente
+
+	column Segmento
+		dataType: string
+		lineageTag: 21a368c9-5770-515e-ada0-2d76c8cdad9a
+		summarizeBy: none
+		sourceColumn: Segmento
+
+	column Cidade
+		dataType: string
+		lineageTag: 2d8bba45-85fd-5346-9483-dc309d1173ef
+		summarizeBy: none
+		sourceColumn: Cidade
+
+	column UF
+		dataType: string
+		lineageTag: 507e0b91-3512-5466-be18-ffd854c448c5
+		summarizeBy: none
+		sourceColumn: UF
+
+	column Regiao
+		dataType: string
+		lineageTag: c4c8965f-4d59-529c-af34-d547c0015fa8
+		summarizeBy: none
+		sourceColumn: Regiao
+
+	column DataCadastro
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 8816dfb9-f45a-506d-a705-c7f2444c047f
+		summarizeBy: none
+		sourceColumn: DataCadastro
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b868131a-f8c7-51d4-a547-099e5552df1e
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1e19f041-6ed8-557d-b2b4-a9f7c44d2463
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column PorteCliente
+		dataType: string
+		lineageTag: 2d5f5db5-15f2-54de-83a3-3d453e850dd1
+		summarizeBy: none
+		sourceColumn: PorteCliente
+
+	column PotencialMensalEstimado
+		dataType: decimal
+		formatString: "R$" #,0.00
+		lineageTag: 4b39e64a-494f-52da-b319-e6d9ba11d35e
+		summarizeBy: none
+		sourceColumn: PotencialMensalEstimado
+
+	column LimiteCredito
+		dataType: decimal
+		formatString: "R$" #,0.00
+		lineageTag: fa68ae64-f6c7-5be2-ae59-1ad4c4cce73f
+		summarizeBy: none
+		sourceColumn: LimiteCredito
+
+	column PrazoPagamentoPadrao
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ba0da80-324a-5a14-9b77-35c395765296
+		summarizeBy: none
+		sourceColumn: PrazoPagamentoPadrao
+
+	column StatusCliente
+		dataType: string
+		lineageTag: 211b6ed1-1fda-5504-a9b7-e5959a0e1169
+		summarizeBy: none
+		sourceColumn: StatusCliente
+
+	/// Data da primeira compra em toda a série.
+	column PrimeiraCompra = CALCULATE ( MIN ( fVendas[DataVenda] ) )
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 578e356d-a223-5705-a55d-4cdcd9a73e6a
+		summarizeBy: none
+
+	/// Última compra até 08/10/2026.
+	column UltimaCompraCorte = CALCULATE ( MAX ( fVendas[DataVenda] ), fVendas[DataVenda] <= DATE ( 2026, 10, 8 ) )
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: d341e652-3dc6-54ed-823e-26addf3e0a22
+		summarizeBy: none
+
+	/// Dias desde a última compra em 08/10/2026.
+	column RecenciaDias = DATEDIFF ( dCliente[UltimaCompraCorte], DATE ( 2026, 10, 8 ), DAY )
+		dataType: int64
+		formatString: 0
+		lineageTag: b1844567-c363-5456-b752-f4d8e8297ae7
+		summarizeBy: none
+
+	/// Pedidos nos 12 meses até 08/10/2026.
+	column Frequencia12m = CALCULATE ( COUNTROWS ( fVendas ), fVendas[DataVenda] > DATE ( 2025, 10, 8 ), fVendas[DataVenda] <= DATE ( 2026, 10, 8 ) ) + 0
+		dataType: int64
+		formatString: 0
+		lineageTag: 709082e1-0d43-5f6f-bfbf-f2d0188b7df1
+		summarizeBy: none
+
+	/// Receita líquida nos 12 meses até 08/10/2026.
+	column Valor12m = CALCULATE ( SUM ( fVendas[ReceitaLiquida] ), fVendas[DataVenda] > DATE ( 2025, 10, 8 ), fVendas[DataVenda] <= DATE ( 2026, 10, 8 ) ) + 0
+		dataType: decimal
+		formatString: "R$" #,0
+		lineageTag: c99b32b9-f7f5-5576-9ab9-efdbb7000b29
+		summarizeBy: none
+
+	column Receita90d = CALCULATE ( SUM ( fVendas[ReceitaLiquida] ), fVendas[DataVenda] > DATE ( 2026, 7, 10 ), fVendas[DataVenda] <= DATE ( 2026, 10, 8 ) ) + 0
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0
+		lineageTag: c0e88496-2008-53dc-a94b-a774f65c32fc
+		summarizeBy: none
+
+	column Receita90dAnterior = CALCULATE ( SUM ( fVendas[ReceitaLiquida] ), fVendas[DataVenda] > DATE ( 2026, 4, 11 ), fVendas[DataVenda] <= DATE ( 2026, 7, 10 ) ) + 0
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0
+		lineageTag: 4ea63e1e-3a92-53aa-a720-325c3a43dc0a
+		summarizeBy: none
+
+	column RFVCodigo =
+			VAR _r = dCliente[RecenciaDias]
+			VAR _f = dCliente[Frequencia12m]
+			VAR _v = dCliente[Valor12m]
+			VAR _base = FILTER ( ALL ( dCliente[ClienteID], dCliente[Frequencia12m], dCliente[Valor12m] ), dCliente[Frequencia12m] > 0 )
+			VAR _f80 = PERCENTILEX.INC ( _base, dCliente[Frequencia12m], 0.8 )
+			VAR _f50 = PERCENTILEX.INC ( _base, dCliente[Frequencia12m], 0.5 )
+			VAR _v80 = PERCENTILEX.INC ( _base, dCliente[Valor12m], 0.8 )
+			VAR _queda = dCliente[Receita90dAnterior] > 0 && DIVIDE ( dCliente[Receita90d], dCliente[Receita90dAnterior] ) < 0.6
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( _r ), 7,
+			        _r > 90, 6,
+			        _r > 30, 5,
+			        _r > 14 || _queda, 4,
+			        _r <= 7 && _f >= _f80 && _v >= _v80, 1,
+			        _f >= _f50, 2,
+			        3
+			    )
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f70b5d5b-7eaf-5d19-a9d9-886377e92540
+		summarizeBy: none
+
+	/// Segmento RFV em 08/10/2026. Perdidos: mais de 90 dias sem comprar. Hibernando: 31 a 90. Em risco: 15 a 30 dias, ou receita dos últimos 90 dias abaixo de 60% dos 90 anteriores. Campeões: até 7 dias, frequência e valor de 12 meses no quintil superior. Fiéis: frequência acima da mediana. Potenciais: demais.
+	column SegmentoRFV = SWITCH ( dCliente[RFVCodigo], 1, "Campeões", 2, "Fiéis", 3, "Potenciais", 4, "Em risco", 5, "Hibernando", 6, "Perdidos", "Sem compra" )
+		dataType: string
+		lineageTag: 963fd1cd-961e-5008-b631-db360a2ef021
+		summarizeBy: none
+		sortByColumn: SegmentoRFVOrdem
+
+	column SegmentoRFVOrdem = dCliente[RFVCodigo] + 0
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fa9cf573-e39f-5f3d-8101-3a962d2d93df
+		summarizeBy: none
+
+	partition dCliente = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dCliente.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"ClienteID", "RazaoSocial", "NomeFantasia", "CNPJ_Ficticio", "TipoCliente", "Segmento", "Cidade", "UF", "Regiao", "DataCadastro", "VendedorID", "FilialID", "PorteCliente", "PotencialMensalEstimado", "LimiteCredito", "PrazoPagamentoPadrao", "StatusCliente"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ClienteID", Int64.Type}, {"RazaoSocial", type text}, {"NomeFantasia", type text}, {"CNPJ_Ficticio", type text}, {"TipoCliente", type text}, {"Segmento", type text}, {"Cidade", type text}, {"UF", type text}, {"Regiao", type text}, {"DataCadastro", type date}, {"VendedorID", Int64.Type}, {"FilialID", Int64.Type}, {"PorteCliente", type text}, {"PotencialMensalEstimado", Currency.Type}, {"LimiteCredito", Currency.Type}, {"PrazoPagamentoPadrao", Int64.Type}, {"StatusCliente", type text}}, "en-US")
+				in
+					Tipos
+

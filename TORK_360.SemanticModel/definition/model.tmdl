@@ -1,0 +1,41 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["PastaDados", "dCalendario", "dMes", "dCliente", "dFilial", "dFornecedor", "dProduto", "dVendedor", "fVendas", "fFinanceiro", "fEstoque", "fCompras", "fMetas", "fVisitas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table _Medidas
+ref table dCalendario
+ref table dMes
+ref table dCliente
+ref table dFilial
+ref table dFornecedor
+ref table dProduto
+ref table dVendedor
+ref table fVendas
+ref table fFinanceiro
+ref table fEstoque
+ref table fCompras
+ref table fMetas
+ref table fVisitas
+ref table pModo
+ref table pMetrica
+ref table pDimensao
+ref table pIndicador
+ref table pInatividade
+ref table pCenario
+ref table pHorizonte
+ref table pQueda
+ref table pOrdem
+
+ref cultureInfo pt-BR
+

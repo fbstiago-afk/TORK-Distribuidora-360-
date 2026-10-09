@@ -1,0 +1,82 @@
+/// Fornecedores com scores cadastrais de qualidade, entrega e preço.
+table dFornecedor
+	lineageTag: 9e003543-8669-5d53-94a1-02e91ae199b5
+
+	column FornecedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ed58ffa1-1db4-5c96-b8b4-532d696920a1
+		summarizeBy: none
+		sourceColumn: FornecedorID
+
+	column Fornecedor
+		dataType: string
+		lineageTag: 4f155e33-361e-5d50-a1de-fe682a2dfbd0
+		summarizeBy: none
+		sourceColumn: Fornecedor
+
+	column UF
+		dataType: string
+		lineageTag: f6e8d7ce-14c2-5385-937e-5859009a941b
+		summarizeBy: none
+		sourceColumn: UF
+
+	column CategoriaPrincipal
+		dataType: string
+		lineageTag: b252e59a-ba56-5c12-872c-a84f3903f723
+		summarizeBy: none
+		sourceColumn: CategoriaPrincipal
+
+	column LeadTimePadraoDias
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d229b7f-f144-5b61-bebc-b4dcb099176d
+		summarizeBy: none
+		sourceColumn: LeadTimePadraoDias
+
+	column PrazoPagamento
+		dataType: int64
+		formatString: 0
+		lineageTag: 64a3cefb-44d3-5d64-ad80-0807d46d429b
+		summarizeBy: none
+		sourceColumn: PrazoPagamento
+
+	column ScoreQualidade
+		dataType: int64
+		formatString: 0
+		lineageTag: d50cb652-6b84-5dd2-909a-d7c9dabcef2f
+		summarizeBy: none
+		sourceColumn: ScoreQualidade
+
+	column ScoreEntrega
+		dataType: int64
+		formatString: 0
+		lineageTag: a9d895b8-d513-54e9-a578-cfeecfd20a3e
+		summarizeBy: none
+		sourceColumn: ScoreEntrega
+
+	column ScorePreco
+		dataType: int64
+		formatString: 0
+		lineageTag: 59861a1b-e90b-5e10-a8ad-774102d04a00
+		summarizeBy: none
+		sourceColumn: ScorePreco
+
+	column StatusFornecedor
+		dataType: string
+		lineageTag: 66ce2d89-ca23-5446-b94f-54bf10d01692
+		summarizeBy: none
+		sourceColumn: StatusFornecedor
+
+	partition dFornecedor = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dFornecedor.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"FornecedorID", "Fornecedor", "UF", "CategoriaPrincipal", "LeadTimePadraoDias", "PrazoPagamento", "ScoreQualidade", "ScoreEntrega", "ScorePreco", "StatusFornecedor"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"FornecedorID", Int64.Type}, {"Fornecedor", type text}, {"UF", type text}, {"CategoriaPrincipal", type text}, {"LeadTimePadraoDias", Int64.Type}, {"PrazoPagamento", Int64.Type}, {"ScoreQualidade", Int64.Type}, {"ScoreEntrega", Int64.Type}, {"ScorePreco", Int64.Type}, {"StatusFornecedor", type text}}, "en-US")
+				in
+					Tipos
+

@@ -1,0 +1,87 @@
+/// Interações comerciais. Sem vínculo causal com pedidos.
+table fVisitas
+	lineageTag: 28227524-59ed-5c86-aea7-e74b4079d570
+
+	column VisitaID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dbfb216b-2aac-5a82-b290-7f98e54a707b
+		summarizeBy: none
+		sourceColumn: VisitaID
+
+	column DataVisita
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 3f101fa7-cae3-54ca-993e-b68aa5fe38bd
+		summarizeBy: none
+		sourceColumn: DataVisita
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eeacf68f-15f5-5cb4-9b47-84e476e22253
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5116a823-c36d-5d0d-a5ca-c1dc7c9075fc
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 88e3212f-1c62-5b9d-8c12-2dec0e54b142
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column TipoVisita
+		dataType: string
+		lineageTag: 85a03bd1-b009-51c2-b0af-0e61f097f4a1
+		summarizeBy: none
+		sourceColumn: TipoVisita
+
+	column Motivo
+		dataType: string
+		lineageTag: c02efee5-6dce-5485-a42c-eef7f0dff726
+		summarizeBy: none
+		sourceColumn: Motivo
+
+	column Resultado
+		dataType: string
+		lineageTag: d9f397c9-8882-59a0-a2fd-12745e487918
+		summarizeBy: none
+		sourceColumn: Resultado
+
+	column ProximaAcao
+		dataType: string
+		lineageTag: 12c6b6a3-b732-54eb-8479-3a823f09fc69
+		summarizeBy: none
+		sourceColumn: ProximaAcao
+
+	column DataProximaAcao
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 939def59-1fcb-5bca-a85e-c5b85e3f91f4
+		summarizeBy: none
+		sourceColumn: DataProximaAcao
+
+	partition fVisitas = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fVisitas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"VisitaID", "DataVisita", "ClienteID", "VendedorID", "FilialID", "TipoVisita", "Motivo", "Resultado", "ProximaAcao", "DataProximaAcao"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"VisitaID", Int64.Type}, {"DataVisita", type date}, {"ClienteID", Int64.Type}, {"VendedorID", Int64.Type}, {"FilialID", Int64.Type}, {"TipoVisita", type text}, {"Motivo", type text}, {"Resultado", type text}, {"ProximaAcao", type text}, {"DataProximaAcao", type date}}, "en-US")
+				in
+					Tipos
+

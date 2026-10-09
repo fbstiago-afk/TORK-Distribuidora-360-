@@ -1,0 +1,163 @@
+/// Itens de venda. Na base cada pedido tem um único item. Colunas derivadas (margens) ficam nas medidas.
+table fVendas
+	lineageTag: d8e5c20c-dd54-5ccc-b562-6a1051e3042f
+
+	column PedidoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a97e5b3a-35b6-5400-adae-18a2aaaca0dc
+		summarizeBy: none
+		sourceColumn: PedidoID
+
+	column DataVenda
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 0e6351b7-ea2c-5cf0-b321-cd58ca9f391a
+		summarizeBy: none
+		sourceColumn: DataVenda
+
+	column ClienteID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 32bf855b-1f44-5513-8146-be466bfbe58c
+		summarizeBy: none
+		sourceColumn: ClienteID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0d42ff24-d201-5648-aa23-ab37fca2a7c7
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b37728a-35e8-5fba-8b1f-676c64305bff
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4c8fd373-316a-53c5-8665-45dbd52bb68b
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Quantidade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5e52daf1-5065-510c-9a2d-c5c8e9a83e8f
+		summarizeBy: none
+		sourceColumn: Quantidade
+
+	column PrecoTabelaUnitario
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: c3986c43-1b3d-5adf-bad2-b92d1b68a6a2
+		summarizeBy: none
+		sourceColumn: PrecoTabelaUnitario
+
+	column PrecoVendaUnitario
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 9d76ad88-c9c0-5f7d-8420-5aa5ee046947
+		summarizeBy: none
+		sourceColumn: PrecoVendaUnitario
+
+	column ReceitaBruta
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 0e055bb8-be7e-573e-810e-581a95e33261
+		summarizeBy: none
+		sourceColumn: ReceitaBruta
+
+	column DescontoValor
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 062bf0a5-ff75-566f-930d-caa59e2b29e9
+		summarizeBy: none
+		sourceColumn: DescontoValor
+
+	column ReceitaLiquida
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: d2d53c52-a7b6-5b12-85e1-9f6b8ca7b391
+		summarizeBy: none
+		sourceColumn: ReceitaLiquida
+
+	column CustoUnitario
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 308386dd-a052-5245-b27d-6e65c2bef74d
+		summarizeBy: none
+		sourceColumn: CustoUnitario
+
+	column CMV
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 8ede0b0c-9c70-54da-ace1-8f610c65c3ae
+		summarizeBy: none
+		sourceColumn: CMV
+
+	column FreteRateado
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 61950afb-8436-57a3-80a4-667096f77d5e
+		summarizeBy: none
+		sourceColumn: FreteRateado
+
+	column Comissao
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: c4ebef49-20d4-5a8f-9a77-e708a26d2b19
+		summarizeBy: none
+		sourceColumn: Comissao
+
+	column CanalVenda
+		dataType: string
+		lineageTag: 7ce73bed-1e97-5d66-bfea-1041ca0f742f
+		summarizeBy: none
+		sourceColumn: CanalVenda
+
+	column CondicaoPagamento
+		dataType: string
+		lineageTag: 6abaa0cb-034c-51b7-9cb1-d4657d9abb11
+		summarizeBy: none
+		sourceColumn: CondicaoPagamento
+
+	column PrazoPagamentoDias
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 08079214-54d9-5e5c-84f5-43d88d8c0292
+		summarizeBy: none
+		sourceColumn: PrazoPagamentoDias
+
+	partition fVendas = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fVendas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"PedidoID", "DataVenda", "ClienteID", "ProdutoID", "VendedorID", "FilialID", "Quantidade", "PrecoTabelaUnitario", "PrecoVendaUnitario", "ReceitaBruta", "DescontoValor", "ReceitaLiquida", "CustoUnitario", "CMV", "FreteRateado", "Comissao", "CanalVenda", "CondicaoPagamento", "PrazoPagamentoDias"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"PedidoID", Int64.Type}, {"DataVenda", type date}, {"ClienteID", Int64.Type}, {"ProdutoID", Int64.Type}, {"VendedorID", Int64.Type}, {"FilialID", Int64.Type}, {"Quantidade", Int64.Type}, {"PrecoTabelaUnitario", Currency.Type}, {"PrecoVendaUnitario", Currency.Type}, {"ReceitaBruta", Currency.Type}, {"DescontoValor", Currency.Type}, {"ReceitaLiquida", Currency.Type}, {"CustoUnitario", Currency.Type}, {"CMV", Currency.Type}, {"FreteRateado", Currency.Type}, {"Comissao", Currency.Type}, {"CanalVenda", type text}, {"CondicaoPagamento", type text}, {"PrazoPagamentoDias", Int64.Type}}, "en-US")
+				in
+					Tipos
+

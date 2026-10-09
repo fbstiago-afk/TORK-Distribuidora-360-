@@ -1,0 +1,21 @@
+VendedorID,Vendedor,FilialID,DataAdmissao,MetaMensalBase,PerfilPerformance,StatusVendedor
+1,Consultor Comercial 01,1,2020-09-10,624657,Alta performance,Ativo
+2,Consultor Comercial 02,1,2021-01-05,653462,Forte em margem,Ativo
+3,Consultor Comercial 03,1,2020-12-10,590204,Forte em volume,Ativo
+4,Consultor Comercial 04,1,2021-01-17,621183,Baixo desempenho,Ativo
+5,Consultor Comercial 05,1,2023-03-11,775707,Abertura de clientes,Ativo
+6,Consultor Comercial 06,2,2023-02-16,570479,Alta performance,Ativo
+7,Consultor Comercial 07,2,2022-04-14,625910,Forte em margem,Ativo
+8,Consultor Comercial 08,2,2020-06-29,730456,Forte em volume,Ativo
+9,Consultor Comercial 09,2,2021-09-09,675767,Baixo desempenho,Ativo
+10,Consultor Comercial 10,2,2023-02-24,554415,Abertura de clientes,Ativo
+11,Consultor Comercial 11,3,2021-01-31,464661,Alta performance,Ativo
+12,Consultor Comercial 12,3,2022-09-05,492118,Forte em margem,Ativo
+13,Consultor Comercial 13,3,2022-10-14,598067,Forte em volume,Ativo
+14,Consultor Comercial 14,3,2021-06-06,787308,Baixo desempenho,Ativo
+15,Consultor Comercial 15,3,2022-10-21,545904,Abertura de clientes,Ativo
+16,Consultor Comercial 16,4,2020-03-29,818060,Alta performance,Ativo
+17,Consultor Comercial 17,4,2021-02-27,508554,Forte em margem,Ativo
+18,Consultor Comercial 18,4,2021-01-10,481918,Forte em volume,Ativo
+19,Consultor Comercial 19,4,2020-12-27,537723,Baixo desempenho,Ativo
+20,Consultor Comercial 20,4,2021-06-24,641121,Abertura de clientes,Ativo

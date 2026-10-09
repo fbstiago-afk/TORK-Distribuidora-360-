@@ -1,0 +1,6 @@
+/// Pasta com os 12 CSVs da base. Altere aqui se mover o projeto.
+expression PastaDados = "E:\Projetos BI\09 - Distribuidora 360\dados\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f02d8693-3d5b-5352-87ba-07de49701acc
+
+	annotation PBI_ResultType = Text
+

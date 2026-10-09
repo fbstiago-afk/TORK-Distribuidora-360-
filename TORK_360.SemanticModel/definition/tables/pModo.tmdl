@@ -1,0 +1,25 @@
+/// Modo de análise: realizado até a data de corte (padrão) ou demonstração com o horizonte sintético completo.
+table pModo
+	lineageTag: 4735c61c-904f-599f-ad1a-59a8c6bdd45f
+
+	column Modo
+		dataType: string
+		lineageTag: 9040559a-b3d1-5871-9ca1-20fafdd6904f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Modo]
+		sortByColumn: ModoID
+
+	column ModoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5e1dea55-aa7a-58f6-a3d8-9b3a780e6942
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ModoID]
+
+	partition pModo = calculated
+		mode: import
+		source = DATATABLE ( "Modo", STRING, "ModoID", INTEGER, { { "Realizado até 08/10/2026", 1 }, { "Demonstração até 31/10/2026", 2 } } )
+

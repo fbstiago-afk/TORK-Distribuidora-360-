@@ -1,0 +1,47 @@
+/// Parâmetro de campo: dimensão do ranking (filial, categoria, vendedor, canal ou segmento).
+table pDimensao
+	lineageTag: d5f404ef-99f5-55d3-b441-386aeeb1ded8
+
+	column Dimensão
+		dataType: string
+		lineageTag: 0f440402-d019-5631-b530-dd982e51f2bd
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Dimensão Ordem'
+
+		relatedColumnDetails
+			groupByColumn: 'Dimensão Campos'
+
+	column 'Dimensão Campos'
+		dataType: string
+		isHidden
+		lineageTag: b171976b-0db2-5401-a5bb-376df8f2c02e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Dimensão Ordem'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column 'Dimensão Ordem'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 39469b17-9f5d-52eb-b315-bb697dce4119
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition pDimensao = calculated
+		mode: import
+		source =
+				{
+					( "Filial", NAMEOF ( dFilial[Filial] ), 0 ),
+					( "Categoria", NAMEOF ( dProduto[Categoria] ), 1 ),
+					( "Vendedor", NAMEOF ( dVendedor[Vendedor] ), 2 ),
+					( "Canal", NAMEOF ( fVendas[CanalVenda] ), 3 ),
+					( "Segmento", NAMEOF ( dCliente[Segmento] ), 4 )
+				}
+

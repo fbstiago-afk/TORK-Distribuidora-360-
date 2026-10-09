@@ -1,0 +1,46 @@
+/// Uma linha por mês, derivada de dCalendario. Dimensão de fMetas.
+table dMes
+	lineageTag: f2c4c24f-aaba-596e-a909-d128b6bc7104
+
+	column AnoMes
+		dataType: string
+		lineageTag: d423b131-d891-5dde-bc10-fbeebd5a032d
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+	column Ano
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 01b3669b-210b-5484-9592-7e8665518135
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column MesNumero
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8e0690a7-5c8d-5e8a-8667-4f72c23b472b
+		summarizeBy: none
+		sourceColumn: MesNumero
+
+	column MesIndice
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4e247b5e-45e8-57ed-a859-4d34b93e2625
+		summarizeBy: none
+		sourceColumn: MesIndice
+
+	partition dMes = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dCalendario.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.Distinct(Table.SelectColumns(Cabecalho, {"AnoMes", "Ano", "MesNumero"})),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"AnoMes", type text}, {"Ano", Int64.Type}, {"MesNumero", Int64.Type}}, "en-US"),
+					MesIndice = Table.AddColumn(Tipos, "MesIndice", each [Ano] * 12 + [MesNumero], Int64.Type)
+				in
+					MesIndice
+

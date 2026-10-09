@@ -1,0 +1,78 @@
+/// Metas no grão mês × vendedor. Liga-se a dMes, não ao calendário diário.
+table fMetas
+	lineageTag: 93da0f53-be8b-5871-a376-74465d519a47
+
+	column AnoMes
+		dataType: string
+		isHidden
+		lineageTag: 95e338d7-c75f-51f4-b966-b0be2b164e9a
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 11afe564-f40c-5d24-bd04-b19eeddc737a
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 18da087f-3625-5c8e-82a2-cd156392869b
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column MetaFaturamento
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 33febf08-92b2-54cf-b513-6f7d827e15a1
+		summarizeBy: none
+		sourceColumn: MetaFaturamento
+
+	column MetaMargem
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 0dc65f9e-192e-56b0-9eda-3de0a4bd3f3a
+		summarizeBy: none
+		sourceColumn: MetaMargem
+
+	column MetaClientesPositivados
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6fbd45f-561e-5fa9-8a3c-51b5ba613239
+		summarizeBy: none
+		sourceColumn: MetaClientesPositivados
+
+	column MetaMix
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ec73864b-6419-5f0c-b35e-735bbcf75870
+		summarizeBy: none
+		sourceColumn: MetaMix
+
+	column MetaNovosClientes
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 93ded15b-92b6-5421-bec4-3a6c873d39d5
+		summarizeBy: none
+		sourceColumn: MetaNovosClientes
+
+	partition fMetas = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fMetas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"AnoMes", "FilialID", "VendedorID", "MetaFaturamento", "MetaMargem", "MetaClientesPositivados", "MetaMix", "MetaNovosClientes"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"AnoMes", type text}, {"FilialID", Int64.Type}, {"VendedorID", Int64.Type}, {"MetaFaturamento", Currency.Type}, {"MetaMargem", Currency.Type}, {"MetaClientesPositivados", Int64.Type}, {"MetaMix", Int64.Type}, {"MetaNovosClientes", Int64.Type}}, "en-US")
+				in
+					Tipos
+

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.4.0/schema.json",
+  "displayName": "Filtros abertos · Comercial & Clientes",
+  "name": "da261c5ecb9a79e25620",
+  "options": {
+    "targetVisualNames": [
+      "5399be4085521743d157",
+      "c12d3509cedc4a6d5003",
+      "48c07bfc2cba1eca30fe",
+      "82dc6d9cbe9252400f62",
+      "c81f3f04279c152149b0",
+      "c61132a4c82f05328903",
+      "74f7b10a88e25df55dfa",
+      "2c22064b68cb5b28597b",
+      "5b2b3599fbfd28c99f9a",
+      "b6c34f15289d589bb496",
+      "1c98c7f38a76ba41fcda",
+      "2acf66b548de668b3f27",
+      "cdb0d2c309f2c695a703",
+      "f030b0d34d8dfdf68b3d"
+    ],
+    "suppressData": true,
+    "applyOnlyToTargetVisuals": true
+  },
+  "explorationState": {
+    "version": "1.0",
+    "activeSection": "comercial",
+    "sections": {
+      "comercial": {
+        "visualContainers": {
+          "5399be4085521743d157": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c12d3509cedc4a6d5003": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "48c07bfc2cba1eca30fe": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "82dc6d9cbe9252400f62": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "c81f3f04279c152149b0": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "c61132a4c82f05328903": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "74f7b10a88e25df55dfa": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "2c22064b68cb5b28597b": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "5b2b3599fbfd28c99f9a": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "b6c34f15289d589bb496": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "1c98c7f38a76ba41fcda": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {}
+            }
+          },
+          "2acf66b548de668b3f27": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "cdb0d2c309f2c695a703": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "f030b0d34d8dfdf68b3d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

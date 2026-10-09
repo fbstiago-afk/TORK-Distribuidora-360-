@@ -1,0 +1,63 @@
+/// Vendedores.
+table dVendedor
+	lineageTag: 72d3cac2-bef3-5c58-a29a-292e5612d855
+
+	column VendedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 06db8d46-be8d-5ccb-bc5e-a58f875a7d16
+		summarizeBy: none
+		sourceColumn: VendedorID
+
+	column Vendedor
+		dataType: string
+		lineageTag: 8a0a8588-5359-5054-b3e0-b1f2ef16be14
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 829252a6-3b7a-555f-aef4-7a28ee06f752
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column DataAdmissao
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: c53feb95-5a50-5be4-9db9-e9bcf232bb8a
+		summarizeBy: none
+		sourceColumn: DataAdmissao
+
+	column MetaMensalBase
+		dataType: decimal
+		formatString: "R$" #,0.00
+		lineageTag: 1b0253fe-0364-5fa8-9df8-047169bbfd66
+		summarizeBy: none
+		sourceColumn: MetaMensalBase
+
+	column PerfilPerformance
+		dataType: string
+		lineageTag: 07d97775-3ce6-57a0-83ad-f8ee67f8b443
+		summarizeBy: none
+		sourceColumn: PerfilPerformance
+
+	column StatusVendedor
+		dataType: string
+		lineageTag: a41ec418-a9ef-515c-bb80-5a1414461946
+		summarizeBy: none
+		sourceColumn: StatusVendedor
+
+	partition dVendedor = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dVendedor.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"VendedorID", "Vendedor", "FilialID", "DataAdmissao", "MetaMensalBase", "PerfilPerformance", "StatusVendedor"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"VendedorID", Int64.Type}, {"Vendedor", type text}, {"FilialID", Int64.Type}, {"DataAdmissao", type date}, {"MetaMensalBase", Currency.Type}, {"PerfilPerformance", type text}, {"StatusVendedor", type text}}, "en-US")
+				in
+					Tipos
+

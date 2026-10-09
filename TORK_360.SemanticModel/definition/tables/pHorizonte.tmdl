@@ -1,0 +1,25 @@
+/// Horizonte da simulação de estoque.
+table pHorizonte
+	lineageTag: 102f28fb-e8d4-5ffb-a79e-c7235ef91e5f
+
+	column Horizonte
+		dataType: string
+		lineageTag: 9e22bb62-2151-52a3-bee4-caafcaf51444
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Horizonte]
+		sortByColumn: Dias
+
+	column Dias
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d78f47ac-e1d0-5878-b86c-4c67f14b1a78
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dias]
+
+	partition pHorizonte = calculated
+		mode: import
+		source = DATATABLE ( "Horizonte", STRING, "Dias", INTEGER, { { "15 dias", 15 }, { "30 dias", 30 }, { "45 dias", 45 }, { "60 dias", 60 } } )
+

@@ -1,0 +1,54 @@
+/// Filiais.
+table dFilial
+	lineageTag: d1589d90-5fd6-58ab-8a96-7f11fc69b3f8
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d39a80b4-91d9-54e2-ac94-4ccce1d8db54
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column Filial
+		dataType: string
+		lineageTag: 07b4114b-19a0-5b3b-ba90-18285248bfe7
+		summarizeBy: none
+		sourceColumn: Filial
+
+	column Cidade
+		dataType: string
+		lineageTag: 7cae6f8c-db08-53d9-b386-40fefcdab444
+		summarizeBy: none
+		sourceColumn: Cidade
+
+	column UF
+		dataType: string
+		lineageTag: 218e0982-dc9c-5ecb-b177-2e508d52d2a8
+		summarizeBy: none
+		sourceColumn: UF
+
+	column Regiao
+		dataType: string
+		lineageTag: 15026a1d-a2c8-5231-a4c7-61cc37810581
+		summarizeBy: none
+		sourceColumn: Regiao
+
+	column DataAbertura
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: cd4a13ef-1980-53c3-8b76-9853cdeb3ce2
+		summarizeBy: none
+		sourceColumn: DataAbertura
+
+	partition dFilial = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dFilial.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"FilialID", "Filial", "Cidade", "UF", "Regiao", "DataAbertura"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"FilialID", Int64.Type}, {"Filial", type text}, {"Cidade", type text}, {"UF", type text}, {"Regiao", type text}, {"DataAbertura", type date}}, "en-US")
+				in
+					Tipos
+

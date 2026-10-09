@@ -1,0 +1,13 @@
+﻿Aba,Linhas_dados,Colunas,Arquivo,Tamanho_MB,Status
+dCalendario,1035,13,dCalendario.csv,0.07,PRESENTE
+dCliente,2000,17,dCliente.csv,0.36,PRESENTE
+dProduto,700,14,dProduto.csv,0.08,PRESENTE
+dVendedor,20,7,dVendedor.csv,0.0,PRESENTE
+dFornecedor,50,10,dFornecedor.csv,0.0,PRESENTE
+dFilial,4,6,dFilial.csv,0.0,PRESENTE
+fVendas,720000,25,fVendas.csv,121.51,PRESENTE
+fMetas,680,8,fMetas.csv,0.03,PRESENTE
+fEstoque,414400,12,fEstoque.csv,22.89,PRESENTE
+fCompras,75000,16,fCompras.csv,7.59,PRESENTE
+fFinanceiro,720000,12,fFinanceiro.csv,58.8,PRESENTE
+fVisitas,48000,10,fVisitas.csv,4.08,PRESENTE

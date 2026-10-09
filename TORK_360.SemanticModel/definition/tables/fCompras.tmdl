@@ -1,0 +1,139 @@
+/// Itens de pedido de compra. Data ativa: DataPedido. Entrega real por relação inativa.
+table fCompras
+	lineageTag: 0e481a53-b295-5da3-9021-8fae28074082
+
+	column CompraID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fe2b0306-ffd5-5c1d-be6d-987741a6f0f3
+		summarizeBy: none
+		sourceColumn: CompraID
+
+	column PedidoCompraID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8fea84a1-6ff0-5ef8-9958-92664e3dc52a
+		summarizeBy: none
+		sourceColumn: PedidoCompraID
+
+	column DataPedido
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 0f1724c2-a35a-504a-b109-1679bfa4df9d
+		summarizeBy: none
+		sourceColumn: DataPedido
+
+	column DataPrevistaEntrega
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 3fb9eab9-bcba-5af4-9c55-af603196d4ae
+		summarizeBy: none
+		sourceColumn: DataPrevistaEntrega
+
+	column DataEntregaReal
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 3fdf6535-e740-5094-a405-334a9f04232f
+		summarizeBy: none
+		sourceColumn: DataEntregaReal
+
+	column FornecedorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8e1b5095-f966-5d44-ad51-80a88f276f49
+		summarizeBy: none
+		sourceColumn: FornecedorID
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6ff65c3e-805d-57eb-bf2c-7229d79d42fa
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column FilialID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 83ed4fee-8327-5726-9a32-b02f12bdb93d
+		summarizeBy: none
+		sourceColumn: FilialID
+
+	column QuantidadePedida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4c000888-83a8-5a39-ae13-e9b8a3af311a
+		summarizeBy: none
+		sourceColumn: QuantidadePedida
+
+	column QuantidadeRecebida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b5a75924-c71a-5337-8dfb-d7bc7245597f
+		summarizeBy: none
+		sourceColumn: QuantidadeRecebida
+
+	column PrecoCompraUnitario
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: b3549a26-e52d-546b-9789-554c91e5bfad
+		summarizeBy: none
+		sourceColumn: PrecoCompraUnitario
+
+	column ValorCompra
+		dataType: decimal
+		isHidden
+		formatString: "R$" #,0.00
+		lineageTag: 395acc94-a676-50fe-8fdc-c5879b9eaf7b
+		summarizeBy: none
+		sourceColumn: ValorCompra
+
+	column LeadTimeRealDias
+		dataType: double
+		isHidden
+		lineageTag: f40bf901-bd50-532f-bf88-d407d2b24cf0
+		summarizeBy: none
+		sourceColumn: LeadTimeRealDias
+
+	column AtrasoDias
+		dataType: double
+		isHidden
+		lineageTag: 4fb5bb3b-7604-5bde-ae9d-310f9c2647d2
+		summarizeBy: none
+		sourceColumn: AtrasoDias
+
+	column PedidoCompleto
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 40fddcca-7d19-5afd-a6a5-b63f2adfb890
+		summarizeBy: none
+		sourceColumn: PedidoCompleto
+
+	column StatusCompra
+		dataType: string
+		lineageTag: a6ca95d2-8d7b-51a3-ab17-50c9e41354ab
+		summarizeBy: none
+		sourceColumn: StatusCompra
+
+	partition fCompras = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "fCompras.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"CompraID", "PedidoCompraID", "DataPedido", "DataPrevistaEntrega", "DataEntregaReal", "FornecedorID", "ProdutoID", "FilialID", "QuantidadePedida", "QuantidadeRecebida", "PrecoCompraUnitario", "ValorCompra", "LeadTimeRealDias", "AtrasoDias", "PedidoCompleto", "StatusCompra"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"CompraID", Int64.Type}, {"PedidoCompraID", Int64.Type}, {"DataPedido", type date}, {"DataPrevistaEntrega", type date}, {"DataEntregaReal", type date}, {"FornecedorID", Int64.Type}, {"ProdutoID", Int64.Type}, {"FilialID", Int64.Type}, {"QuantidadePedida", Int64.Type}, {"QuantidadeRecebida", Int64.Type}, {"PrecoCompraUnitario", Currency.Type}, {"ValorCompra", Currency.Type}, {"LeadTimeRealDias", type number}, {"AtrasoDias", type number}, {"PedidoCompleto", Int64.Type}, {"StatusCompra", type text}}, "en-US")
+				in
+					Tipos
+

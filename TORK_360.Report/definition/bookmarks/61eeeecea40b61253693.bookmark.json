@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.4.0/schema.json",
+  "displayName": "Rentabilidade · PVM",
+  "name": "61eeeecea40b61253693",
+  "options": {
+    "targetVisualNames": [
+      "8c36e8465089f6c8c64d",
+      "ff0ffd10663a84d5f6d4"
+    ],
+    "suppressData": true,
+    "applyOnlyToTargetVisuals": true
+  },
+  "explorationState": {
+    "version": "1.0",
+    "activeSection": "rentab",
+    "sections": {
+      "rentab": {
+        "visualContainers": {
+          "8c36e8465089f6c8c64d": {
+            "singleVisual": {
+              "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6855",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "ff0ffd10663a84d5f6d4": {
+            "singleVisual": {
+              "visualType": "htmlContent443BE3AD55E043BF878BED274D3A6855",
+              "objects": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

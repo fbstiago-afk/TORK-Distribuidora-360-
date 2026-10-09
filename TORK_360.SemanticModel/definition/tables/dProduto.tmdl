@@ -1,0 +1,119 @@
+/// Produtos. CurvaABCBase é ilustrativa; a ABC do relatório é dinâmica (medida Classe ABC).
+table dProduto
+	lineageTag: 70567496-ddc0-5a62-94fd-37203335dc21
+
+	column ProdutoID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8c4acb76-c42c-5f9e-9d92-034d5a3ba74d
+		summarizeBy: none
+		sourceColumn: ProdutoID
+
+	column SKU
+		dataType: string
+		lineageTag: d4207c49-b9b8-5ed5-bf82-a4d11a9f4403
+		summarizeBy: none
+		sourceColumn: SKU
+
+	column Produto
+		dataType: string
+		lineageTag: 9eb0c12f-2fbf-5c26-a5d9-4f94cc0fda4a
+		summarizeBy: none
+		sourceColumn: Produto
+
+	column Categoria
+		dataType: string
+		lineageTag: 41ad47cf-fde0-5d7f-9382-5f57eaa6cf31
+		summarizeBy: none
+		sourceColumn: Categoria
+
+	column Subcategoria
+		dataType: string
+		lineageTag: 3423ff6c-bfe7-5398-9d19-2e9290699c3e
+		summarizeBy: none
+		sourceColumn: Subcategoria
+
+	column Marca
+		dataType: string
+		lineageTag: 248f8391-2461-56ac-8b79-16ad392bb88b
+		summarizeBy: none
+		sourceColumn: Marca
+
+	column UnidadeMedida
+		dataType: string
+		lineageTag: bf1231f7-3479-57c1-80a7-42528a10ffd1
+		summarizeBy: none
+		sourceColumn: UnidadeMedida
+
+	column CustoPadrao
+		dataType: decimal
+		formatString: "R$" #,0.00
+		lineageTag: a379d254-1f90-5437-aa0f-971dd4712deb
+		summarizeBy: none
+		sourceColumn: CustoPadrao
+
+	column PrecoTabela
+		dataType: decimal
+		formatString: "R$" #,0.00
+		lineageTag: b9ad900c-187b-537b-9007-26f7240d58f0
+		summarizeBy: none
+		sourceColumn: PrecoTabela
+
+	column MargemAlvo
+		dataType: double
+		lineageTag: 1a73e3b0-080b-5dcc-8f2d-76545f1dcfda
+		summarizeBy: none
+		sourceColumn: MargemAlvo
+
+	column FornecedorPrincipalID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 80f95371-caa0-5ccb-a9c9-be4ea6e82459
+		summarizeBy: none
+		sourceColumn: FornecedorPrincipalID
+
+	column CurvaABCBase
+		dataType: string
+		lineageTag: 19be812b-dcac-5645-b6ee-a0cd690400d8
+		summarizeBy: none
+		sourceColumn: CurvaABCBase
+
+	column StatusProduto
+		dataType: string
+		lineageTag: b6e31843-620c-5ab4-8e45-1925515592be
+		summarizeBy: none
+		sourceColumn: StatusProduto
+
+	column DataLancamento
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: 207fa8a8-8468-54ae-9f25-6bf8a624a684
+		summarizeBy: none
+		sourceColumn: DataLancamento
+
+	/// Nome do fornecedor principal do SKU.
+	column FornecedorPrincipal = LOOKUPVALUE ( dFornecedor[Fornecedor], dFornecedor[FornecedorID], dProduto[FornecedorPrincipalID] )
+		dataType: string
+		lineageTag: 6f7c27e7-ee8f-576c-a11d-2f1e625f237d
+		summarizeBy: none
+
+	/// Lead time padrão do fornecedor principal, em dias.
+	column LeadTimePadraoDias = LOOKUPVALUE ( dFornecedor[LeadTimePadraoDias], dFornecedor[FornecedorID], dProduto[FornecedorPrincipalID] )
+		dataType: int64
+		formatString: 0
+		lineageTag: 0138f790-809b-5fd8-91b4-441e4a0f9546
+		summarizeBy: none
+
+	partition dProduto = m
+		mode: import
+		source =
+				let
+					Fonte = Csv.Document(File.Contents(PastaDados & "dProduto.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+					Colunas = Table.SelectColumns(Cabecalho, {"ProdutoID", "SKU", "Produto", "Categoria", "Subcategoria", "Marca", "UnidadeMedida", "CustoPadrao", "PrecoTabela", "MargemAlvo", "FornecedorPrincipalID", "CurvaABCBase", "StatusProduto", "DataLancamento"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ProdutoID", Int64.Type}, {"SKU", type text}, {"Produto", type text}, {"Categoria", type text}, {"Subcategoria", type text}, {"Marca", type text}, {"UnidadeMedida", type text}, {"CustoPadrao", Currency.Type}, {"PrecoTabela", Currency.Type}, {"MargemAlvo", type number}, {"FornecedorPrincipalID", Int64.Type}, {"CurvaABCBase", type text}, {"StatusProduto", type text}, {"DataLancamento", type date}}, "en-US")
+				in
+					Tipos
+
