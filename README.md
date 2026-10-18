@@ -1,5 +1,12 @@
 # TORK Distribuidora — Inteligência 360°
 
+<!-- portfolio-link:start -->
+[![Ver no portfólio](https://img.shields.io/badge/Ver%20o%20painel%20no%20portf%C3%B3lio-Bocardi%20Data-6C3BAA?style=for-the-badge)](https://bocardidata.base44.app/ProjectDetail?id=tork-360-distribuidora)
+
+> 🔗 **Quer ver o visual do Power BI?** Acesse a página do projeto no portfólio: **[https://bocardidata.base44.app/ProjectDetail?id=tork-360-distribuidora](https://bocardidata.base44.app/ProjectDetail?id=tork-360-distribuidora)**
+<!-- portfolio-link:end -->
+
+
 Painel executivo em Power BI que une vendas, clientes, estoque, fornecedores e margem de uma distribuidora automotiva com 4 filiais, 2.000 clientes e 700 SKUs. Projeto de portfólio em formato **PBIP** (relatório PBIR + modelo semântico TMDL), com tema JSON e componentes HTML/SVG gerados por DAX.
 
 > Todos os dados são **sintéticos**. A base foi documentada como "Voltz" e é exibida como TORK. Nenhum cliente, fornecedor ou valor é real.

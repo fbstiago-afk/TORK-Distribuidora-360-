@@ -1,5 +1,0 @@
-*.json text eol=crlf
-*.tmdl text eol=crlf
-*.gz binary
-*.png binary
-*.jpg binary
